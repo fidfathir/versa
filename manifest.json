@@ -1,0 +1,18 @@
+{
+  "name": "VERSA — Voices of the Past",
+  "short_name": "VERSA",
+  "description": "Discuss any topic with great minds of the past",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f0f1a",
+  "theme_color": "#c9a84c",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

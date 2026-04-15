@@ -95,6 +95,18 @@ def call_claude(system_prompt, messages):
 def index():
     return send_from_directory(".", "versa.html")
 
+@app.route("/manifest.json")
+def manifest():
+    return send_from_directory(".", "manifest.json", mimetype="application/manifest+json")
+
+@app.route("/sw.js")
+def service_worker():
+    return send_from_directory(".", "sw.js", mimetype="application/javascript")
+
+@app.route("/icon.svg")
+def icon():
+    return send_from_directory(".", "icon.svg", mimetype="image/svg+xml")
+
 
 @app.route("/api/chat", methods=["POST"])
 def chat():
