@@ -107,6 +107,14 @@ def service_worker():
 def icon():
     return send_from_directory(".", "icon.svg", mimetype="image/svg+xml")
 
+@app.route("/icon-192.png")
+def icon192():
+    return send_from_directory(".", "icon-192.png", mimetype="image/png")
+
+@app.route("/icon-512.png")
+def icon512():
+    return send_from_directory(".", "icon-512.png", mimetype="image/png")
+
 
 @app.route("/api/chat", methods=["POST"])
 def chat():
