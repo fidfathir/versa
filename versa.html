@@ -936,6 +936,28 @@
     return y;
   }
 
+  function addPDFFooter(doc) {
+    const pageCount = doc.internal.getNumberOfPages();
+    const pageW = 210;
+    const margin = 18;
+    const footerY = 285;
+    const footerText = "This conversation is an AI-generated output produced by VERSA — Voices of the Past, an educational dialogue platform.";
+    const copyrightText = "© 2025 Mohd Firdauz Mohd Fathir. All rights reserved. Content is for educational purposes only and does not represent the actual views of historical figures.";
+
+    for (let i = 1; i <= pageCount; i++) {
+      doc.setPage(i);
+      doc.setDrawColor(201, 168, 76);
+      doc.setLineWidth(0.3);
+      doc.line(margin, footerY - 4, pageW - margin, footerY - 4);
+      doc.setFontSize(7);
+      doc.setFont("helvetica", "italic");
+      doc.setTextColor(120, 120, 150);
+      doc.text(footerText, pageW / 2, footerY + 1, { align: "center" });
+      doc.setFont("helvetica", "normal");
+      doc.text(copyrightText, pageW / 2, footerY + 6, { align: "center" });
+    }
+  }
+
   function downloadPDF() {
     if (chatHistory.length === 0) return;
     const { doc, margin, contentW, y: startY } = initPDF();
@@ -951,6 +973,7 @@
       }
     }
 
+    addPDFFooter(doc);
     doc.save(`VERSA_${p.name}_${currentTopic.slice(0, 30)}.pdf`);
   }
 
@@ -970,6 +993,7 @@
       y = addTextBlock(doc, `${turn.avatar} ${turn.persona}`, color, turn.text, y, margin, contentW);
     }
 
+    addPDFFooter(doc);
     doc.save(`VERSA_Debate_${currentTopic.slice(0, 30)}.pdf`);
   }
 
