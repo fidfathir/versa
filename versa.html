@@ -817,6 +817,7 @@
     document.getElementById("debateHint").style.display = "none";
 
     addStudentDebateTurn(text);
+    debateHistory.push({ avatar: "🎓", persona: "You", text, color: "#c9a84c" });
 
     // Show loading
     const msgs = document.getElementById("debateMessages");
