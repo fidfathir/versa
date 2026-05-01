@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "VERSA Flask App",
+      "runtimeExecutable": "/opt/homebrew/bin/python3",
+      "runtimeArgs": ["/Users/fidfathir/versa/versa_app.py"],
+      "port": 5050
+    }
+  ]
+}
