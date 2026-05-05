@@ -774,6 +774,36 @@
             <span class="persona-tag">Leadership</span>
           </div>
         </div>
+        <div class="persona-card" onclick="selectPersona('ibnkhaldun')" id="card-ibnkhaldun" style="--color: #c0714f">
+          <div class="persona-avatar">📜</div>
+          <div class="persona-name">Ibn Khaldun</div>
+          <div class="persona-era">1332–1406</div>
+          <div class="persona-tags">
+            <span class="persona-tag">Sociology</span>
+            <span class="persona-tag">History</span>
+            <span class="persona-tag">Civilisation</span>
+          </div>
+        </div>
+        <div class="persona-card" onclick="selectPersona('alghazali')" id="card-alghazali" style="--color: #1abc9c">
+          <div class="persona-avatar">🌙</div>
+          <div class="persona-name">Al-Ghazali</div>
+          <div class="persona-era">1058–1111</div>
+          <div class="persona-tags">
+            <span class="persona-tag">Theology</span>
+            <span class="persona-tag">Philosophy</span>
+            <span class="persona-tag">Spirituality</span>
+          </div>
+        </div>
+        <div class="persona-card" onclick="selectPersona('ibnrushd')" id="card-ibnrushd" style="--color: #e67e22">
+          <div class="persona-avatar">⚖️</div>
+          <div class="persona-name">Ibn Rushd</div>
+          <div class="persona-era">1126–1198</div>
+          <div class="persona-tags">
+            <span class="persona-tag">Philosophy</span>
+            <span class="persona-tag">Jurisprudence</span>
+            <span class="persona-tag">Reason</span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -854,7 +884,10 @@
     mcluhan:   { name: "Marshall McLuhan",   avatar: "📡", color: "#4ab3e8", era: "1911–1980",     tags: ["Media Theory","Culture","Comms"] },
     chomsky:   { name: "Noam Chomsky",       avatar: "🗣️", color: "#27ae60", era: "1928–present",  tags: ["Propaganda","Media Criticism","Linguistics"] },
     foucault:  { name: "Michel Foucault",    avatar: "👁️", color: "#8e44ad", era: "1926–1984",     tags: ["Power","Discourse","Surveillance"] },
-    suntzu:    { name: "Sun Tzu",            avatar: "⚔️", color: "#c9a84c", era: "544–496 BC",    tags: ["Strategy","Info Warfare","Leadership"] }
+    suntzu:    { name: "Sun Tzu",            avatar: "⚔️", color: "#c9a84c", era: "544–496 BC",    tags: ["Strategy","Info Warfare","Leadership"] },
+    ibnkhaldun:{ name: "Ibn Khaldun",        avatar: "📜", color: "#c0714f", era: "1332–1406",     tags: ["Sociology","History","Civilisation"] },
+    alghazali: { name: "Al-Ghazali",         avatar: "🌙", color: "#1abc9c", era: "1058–1111",     tags: ["Theology","Philosophy","Spirituality"] },
+    ibnrushd:  { name: "Ibn Rushd",          avatar: "⚖️", color: "#e67e22", era: "1126–1198",     tags: ["Philosophy","Jurisprudence","Reason"] }
   };
 
   let currentMode = "solo";
