@@ -229,6 +229,76 @@
       color: color-mix(in srgb, var(--color) 80%, #aaa);
     }
 
+    /* DEBATE SIZE TOGGLE */
+    .debate-size-toggle {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .debate-size-btn {
+      flex: 1;
+      padding: 9px;
+      background: #141426;
+      border: 2px solid #252542;
+      border-radius: 8px;
+      color: #666688;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      letter-spacing: 0.5px;
+    }
+    .debate-size-btn.active {
+      border-color: #c9a84c;
+      color: #c9a84c;
+      background: rgba(201,168,76,0.08);
+    }
+    .debate-size-btn:hover:not(.active) { border-color: #444466; color: #9999bb; }
+
+    /* DEBATE SELECT COUNTER */
+    .debate-select-counter {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #8888aa;
+      margin-bottom: 14px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      min-height: 1.2em;
+    }
+
+    /* SELECT BADGE on debate persona cards */
+    .select-badge {
+      display: none;
+      position: absolute;
+      top: 8px; right: 8px;
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--color);
+      color: #0f0f1a;
+      font-size: 0.72rem;
+      font-weight: 800;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+    .persona-card.debate-selected .select-badge { display: flex; }
+    .persona-card.debate-selected {
+      border-color: var(--color);
+      background: color-mix(in srgb, var(--color) 8%, #141426);
+      box-shadow: 0 0 0 1px var(--color), 0 8px 32px color-mix(in srgb, var(--color) 25%, transparent);
+    }
+    .persona-card.debate-selected::before { opacity: 1; }
+    .persona-card.debate-selected .persona-tag {
+      border-color: color-mix(in srgb, var(--color) 30%, transparent);
+      color: color-mix(in srgb, var(--color) 80%, #aaa);
+    }
+    .persona-card.debate-maxed:not(.debate-selected) {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
     /* START BUTTON */
     .btn-start {
       width: 100%;
@@ -637,7 +707,7 @@
     <div class="section-title">Mode</div>
     <div class="mode-tabs">
       <button class="tab active" onclick="setMode('solo')" id="tabSolo">1-on-1 Conversation</button>
-      <button class="tab" onclick="setMode('debate')" id="tabDebate">3-Way Debate</button>
+      <button class="tab" onclick="setMode('debate')" id="tabDebate">Debate</button>
     </div>
 
     <!-- SOLO: PICK A PERSONA -->
@@ -674,32 +744,49 @@
             <span class="persona-tag">Comms</span>
           </div>
         </div>
+        <div class="persona-card" onclick="selectPersona('chomsky')" id="card-chomsky" style="--color: #27ae60">
+          <div class="persona-avatar">🗣️</div>
+          <div class="persona-name">Noam Chomsky</div>
+          <div class="persona-era">1928–present</div>
+          <div class="persona-tags">
+            <span class="persona-tag">Propaganda</span>
+            <span class="persona-tag">Media Criticism</span>
+            <span class="persona-tag">Linguistics</span>
+          </div>
+        </div>
+        <div class="persona-card" onclick="selectPersona('foucault')" id="card-foucault" style="--color: #8e44ad">
+          <div class="persona-avatar">👁️</div>
+          <div class="persona-name">Michel Foucault</div>
+          <div class="persona-era">1926–1984</div>
+          <div class="persona-tags">
+            <span class="persona-tag">Power</span>
+            <span class="persona-tag">Discourse</span>
+            <span class="persona-tag">Surveillance</span>
+          </div>
+        </div>
+        <div class="persona-card" onclick="selectPersona('suntzu')" id="card-suntzu" style="--color: #c9a84c">
+          <div class="persona-avatar">⚔️</div>
+          <div class="persona-name">Sun Tzu</div>
+          <div class="persona-era">544–496 BC</div>
+          <div class="persona-tags">
+            <span class="persona-tag">Strategy</span>
+            <span class="persona-tag">Info Warfare</span>
+            <span class="persona-tag">Leadership</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <!-- DEBATE: INFO -->
+    <!-- DEBATE: SETUP -->
     <div id="debateSection" style="display:none;">
-      <div class="section-title">Debate Panel</div>
-      <div class="debate-panel-info">
-        <div class="debate-panel-persona">
-          <div style="font-size:2.2rem; filter:drop-shadow(0 0 8px rgba(240,160,80,0.4))">🏛️</div>
-          <div style="font-size:0.82rem; font-weight:700; color:#f0a050; margin-top:8px">Aristotle</div>
-          <div style="font-size:0.65rem; color:#555577; margin-top:2px">Philosophy</div>
-        </div>
-        <div class="debate-panel-sep">vs</div>
-        <div class="debate-panel-persona">
-          <div style="font-size:2.2rem; filter:drop-shadow(0 0 8px rgba(232,85,85,0.4))">✊</div>
-          <div style="font-size:0.82rem; font-weight:700; color:#e85555; margin-top:8px">Karl Marx</div>
-          <div style="font-size:0.65rem; color:#555577; margin-top:2px">Political Economy</div>
-        </div>
-        <div class="debate-panel-sep">vs</div>
-        <div class="debate-panel-persona">
-          <div style="font-size:2.2rem; filter:drop-shadow(0 0 8px rgba(74,179,232,0.4))">📡</div>
-          <div style="font-size:0.82rem; font-weight:700; color:#4ab3e8; margin-top:8px">McLuhan</div>
-          <div style="font-size:0.65rem; color:#555577; margin-top:2px">Media Theory</div>
-        </div>
+      <div class="section-title">Debate Setup</div>
+      <div class="debate-size-toggle">
+        <button class="debate-size-btn active" id="btn2way" onclick="setDebateSize(2)">2-Way</button>
+        <button class="debate-size-btn" id="btn3way" onclick="setDebateSize(3)">3-Way</button>
       </div>
-      <p style="color:#8888aa; font-size:0.85rem; text-align:center; margin-bottom:24px">All three will discuss your topic. You can join the debate after.</p>
+      <div class="debate-select-counter" id="debateCounter">Select 2 personas to debate</div>
+      <div class="persona-grid" id="debatePersonaGrid"></div>
+      <div class="debate-panel-info" id="debatePanelDynamic" style="display:none; margin-bottom:20px;"></div>
     </div>
 
     <button class="btn-start" id="btnStart" onclick="start()" disabled>Begin</button>
@@ -762,13 +849,18 @@
 
 <script>
   const PERSONAS = {
-    aristotle: { name: "Aristotle", avatar: "🏛️", color: "#f0a050" },
-    marx:      { name: "Karl Marx", avatar: "✊",  color: "#e85555" },
-    mcluhan:   { name: "Marshall McLuhan", avatar: "📡", color: "#4ab3e8" }
+    aristotle: { name: "Aristotle",         avatar: "🏛️", color: "#f0a050", era: "384–322 BC",    tags: ["Philosophy","Rhetoric","Ethics"] },
+    marx:      { name: "Karl Marx",          avatar: "✊",  color: "#e85555", era: "1818–1883",     tags: ["Class Theory","Economy","Sociology"] },
+    mcluhan:   { name: "Marshall McLuhan",   avatar: "📡", color: "#4ab3e8", era: "1911–1980",     tags: ["Media Theory","Culture","Comms"] },
+    chomsky:   { name: "Noam Chomsky",       avatar: "🗣️", color: "#27ae60", era: "1928–present",  tags: ["Propaganda","Media Criticism","Linguistics"] },
+    foucault:  { name: "Michel Foucault",    avatar: "👁️", color: "#8e44ad", era: "1926–1984",     tags: ["Power","Discourse","Surveillance"] },
+    suntzu:    { name: "Sun Tzu",            avatar: "⚔️", color: "#c9a84c", era: "544–496 BC",    tags: ["Strategy","Info Warfare","Leadership"] }
   };
 
   let currentMode = "solo";
   let selectedPersona = null;
+  let debateSize = 2;
+  let selectedDebatePersonas = [];
   let chatHistory = [];
   let debateHistory = [];
   let currentTopic = "";
@@ -779,8 +871,89 @@
     document.getElementById("tabDebate").classList.toggle("active", mode === "debate");
     document.getElementById("personaSection").style.display = mode === "solo" ? "block" : "none";
     document.getElementById("debateSection").style.display = mode === "debate" ? "block" : "none";
-    if (mode === "debate") selectedPersona = null;
+    if (mode === "solo") { selectedPersona = null; }
+    if (mode === "debate") {
+      selectedDebatePersonas = [];
+      renderDebateGrid();
+      updateDebateCounter();
+      updateDebatePanelInfo();
+    }
     updateStartButton();
+  }
+
+  function setDebateSize(n) {
+    debateSize = n;
+    document.getElementById("btn2way").classList.toggle("active", n === 2);
+    document.getElementById("btn3way").classList.toggle("active", n === 3);
+    if (selectedDebatePersonas.length > n) selectedDebatePersonas = selectedDebatePersonas.slice(0, n);
+    renderDebateGrid();
+    updateDebateCounter();
+    updateDebatePanelInfo();
+    updateStartButton();
+  }
+
+  function renderDebateGrid() {
+    const grid = document.getElementById("debatePersonaGrid");
+    grid.innerHTML = "";
+    const maxed = selectedDebatePersonas.length >= debateSize;
+    for (const [key, p] of Object.entries(PERSONAS)) {
+      const idx = selectedDebatePersonas.indexOf(key);
+      const isSelected = idx !== -1;
+      const div = document.createElement("div");
+      div.className = "persona-card" + (isSelected ? " debate-selected" : "") + (!isSelected && maxed ? " debate-maxed" : "");
+      div.id = "dcard-" + key;
+      div.style.setProperty("--color", p.color);
+      div.onclick = () => toggleDebatePersona(key);
+      div.innerHTML = `
+        <div class="select-badge">${isSelected ? idx + 1 : ""}</div>
+        <div class="persona-avatar">${p.avatar}</div>
+        <div class="persona-name">${p.name}</div>
+        <div class="persona-era">${p.era}</div>
+        <div class="persona-tags">${p.tags.map(t => `<span class="persona-tag">${t}</span>`).join("")}</div>`;
+      grid.appendChild(div);
+    }
+  }
+
+  function toggleDebatePersona(key) {
+    const idx = selectedDebatePersonas.indexOf(key);
+    if (idx !== -1) {
+      selectedDebatePersonas.splice(idx, 1);
+    } else {
+      if (selectedDebatePersonas.length < debateSize) selectedDebatePersonas.push(key);
+    }
+    renderDebateGrid();
+    updateDebateCounter();
+    updateDebatePanelInfo();
+    updateStartButton();
+  }
+
+  function updateDebateCounter() {
+    const remaining = debateSize - selectedDebatePersonas.length;
+    const el = document.getElementById("debateCounter");
+    if (remaining === 0) {
+      el.textContent = "✓ Ready to debate!";
+      el.style.color = "#27ae60";
+    } else {
+      el.textContent = `Select ${remaining} more persona${remaining > 1 ? "s" : ""}`;
+      el.style.color = "#8888aa";
+    }
+  }
+
+  function updateDebatePanelInfo() {
+    const panel = document.getElementById("debatePanelDynamic");
+    if (selectedDebatePersonas.length === 0) { panel.style.display = "none"; return; }
+    panel.style.display = "flex";
+    const parts = [];
+    selectedDebatePersonas.forEach((key, i) => {
+      const p = PERSONAS[key];
+      if (i > 0) parts.push('<div class="debate-panel-sep">vs</div>');
+      parts.push(`<div class="debate-panel-persona">
+        <div style="font-size:2.2rem">${p.avatar}</div>
+        <div style="font-size:0.82rem; font-weight:700; color:${p.color}; margin-top:8px">${p.name}</div>
+        <div style="font-size:0.65rem; color:#555577; margin-top:2px">${p.tags[0]}</div>
+      </div>`);
+    });
+    panel.innerHTML = parts.join("");
   }
 
   function selectPersona(key) {
@@ -794,7 +967,8 @@
 
   function updateStartButton() {
     const topic = document.getElementById("topicInput").value.trim();
-    const ready = topic && (currentMode === "debate" || selectedPersona);
+    const debateReady = selectedDebatePersonas.length === debateSize;
+    const ready = topic && (currentMode === "debate" ? debateReady : selectedPersona);
     document.getElementById("btnStart").disabled = !ready;
   }
 
@@ -940,7 +1114,7 @@
       const res = await fetch("/api/debate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic: currentTopic })
+        body: JSON.stringify({ topic: currentTopic, personas: selectedDebatePersonas })
       });
       const data = await res.json();
 
@@ -1027,7 +1201,8 @@
         body: JSON.stringify({
           topic: currentTopic,
           student_message: text,
-          prior_debate: debateHistory
+          prior_debate: debateHistory,
+          personas: selectedDebatePersonas
         })
       });
       const data = await res.json();
@@ -1177,7 +1352,7 @@
     doc.setFontSize(9);
     doc.setTextColor(136, 136, 170);
     doc.setFont("helvetica", "italic");
-    doc.text("Mode: 3-Way Debate", margin, y);
+    doc.text(`Mode: ${selectedDebatePersonas.length}-Way Debate`, margin, y);
     y += 10;
 
     for (const turn of debateHistory) {
@@ -1218,6 +1393,8 @@
     chatHistory = [];
     debateHistory = [];
     currentTopic = "";
+    selectedDebatePersonas = [];
+    debateSize = 2;
   }
 </script>
 <footer style="text-align:center; padding: 16px; color: #555577; font-size: 0.75rem; border-top: 1px solid #2a2a4a; margin-top: 40px;">
